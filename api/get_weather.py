@@ -1,14 +1,13 @@
-from tkinter import N
 import requests
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
-BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/"
-API_KEY = os.getenv("WEATHER_API_KEY")
-city_id = "1853295"
+
 
 def get_forecast_data(city_id):
+    BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/"
+    API_KEY = os.getenv("WEATHER_API_KEY")
     url = (BASE_URL + f"?id={city_id}&lang=ja&units=metric&appid={API_KEY}")
     res = requests.get(url).json()
     forecast_data = {}
@@ -22,4 +21,3 @@ def get_forecast_data(city_id):
         
     return forecast_data
 
-get_forecast_data(city_id)
