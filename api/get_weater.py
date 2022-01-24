@@ -1,3 +1,4 @@
+from tkinter import N
 import requests
 from dotenv import load_dotenv
 import os
@@ -8,17 +9,17 @@ API_KEY = os.getenv("WEATHER_API_KEY")
 city_id = "1853295"
 
 def get_forecast_data(city_id):
-    url = (BASE_URL + f"?id={city_id}&lang=ja&units=metric&cnt=9&appid={API_KEY}")
+    url = (BASE_URL + f"?id={city_id}&lang=ja&units=metric&appid={API_KEY}")
     res = requests.get(url).json()
-    temp = res["list"][0]["main"]["temp"]
-    humidity = res["list"][0]["main"]["humidity"] 
-    weather = res["list"][0]["weather"][0]["description"]
-    wind = res["list"][0]["wind"]["speed"]
-    date = res["list"][0]["dt_txt"]
-    print(temp)
-    print(humidity)
-    print(weather)
-    print(wind)
-    print(date)
+    forecast_data = {}
+    for forecast in res["list"]:    
+        date = forecast["dt_txt"]
+        weather = forecast["weather"][0]["description"]
+        temp = forecast["main"]["temp"]
+        humidity = forecast["main"]["humidity"] 
+        wind = forecast["wind"]["speed"]
+        forecast_data[f"{date}"] = {"天気": weather, "気温": temp, "湿度": humidity, "風速": wind} 
+        
+    return forecast_data
 
 get_forecast_data(city_id)
