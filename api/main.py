@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from . import get_weather
+import schemas.weather_api as schemas
 
 app = FastAPI()
 
@@ -7,8 +8,7 @@ app = FastAPI()
 def index():
     return {"text": "hello world"}
 
-@app.get("/weather")
-def weather():
-    city_id = "1853295"
-    data = get_weather.get_forecast_data(city_id)
+@app.post("/weather")
+def weather(city: schemas.City):
+    data = get_weather.get_forecast_data(city)
     return {"weather": data}
