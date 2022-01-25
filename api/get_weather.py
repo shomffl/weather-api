@@ -16,13 +16,14 @@ def get_forecast_data(city: schemas.City):
     url = (BASE_URL + f"?id={city.city_id}&lang=ja&units=metric&appid={API_KEY}")
     res = requests.get(url).json()
     forecast_data = {}
-    for forecast in res["list"]:
+    for num, forecast in enumerate(res["list"]):
         date = forecast["dt_txt"]
         weather = forecast["weather"][0]["description"]
         temp = forecast["main"]["temp"]
         humidity = forecast["main"]["humidity"] 
         wind = forecast["wind"]["speed"]
         exponent = laundry_exponent(temp, humidity)
-        forecast_data[f"{date}"] = {"天気": weather, "気温": temp, "湿度": humidity, "風速": wind, "洗濯指数": exponent} 
-        
+        forecast_data[num] = {"日付": date, "天気": weather, "気温": temp, "湿度": humidity, "風速": wind, "洗濯指数": exponent} 
+    
+
     return forecast_data
