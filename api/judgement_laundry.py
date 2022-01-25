@@ -18,3 +18,21 @@ def wind_condition(wind: str):
 
     return condition_text
 
+def weather_condition(weather: str):
+    condition_text = ""
+    if weather == "Clear":
+        condition_text = "洗濯日和です。"
+    elif weather == "Clouds":
+        condition_text = "洗濯物が乾くのに少し時間がかかるかも知れません。"
+    elif weather == "Snow":
+        condition_text = "室内干しを検討しましょう。"
+    elif weather == "Rain":
+        condition_text = "室内干しにしましょう。"
+    elif weather == "Drizzle":
+        condition_text = "室内干しにしましょう。"
+    elif weather == "Thunderstorm":
+        condition_text = "室内干しにしましょう。"
+    else:
+        condition_text = "室内干しを検討しましょう。"
+
+    return condition_text
