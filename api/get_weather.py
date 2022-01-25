@@ -2,12 +2,10 @@ import requests
 from dotenv import load_dotenv
 import os
 import schemas.weather_api as schemas
+from . import judgement_laundry
 load_dotenv()
 
 
-def laundry_exponent(temp:str, humidity:str):
-    calc = round((0.81 * float(temp) + 0.01 * float(humidity) * (0.99 * float(temp) - 14.3) + 46.3), 3)
-    return calc
 
 
 def get_forecast_data(city: schemas.City):
@@ -22,8 +20,9 @@ def get_forecast_data(city: schemas.City):
         temp = forecast["main"]["temp"]
         humidity = forecast["main"]["humidity"] 
         wind = forecast["wind"]["speed"]
-        exponent = laundry_exponent(temp, humidity)
-        forecast_data[num] = {"日付": date, "天気": weather, "気温": temp, "湿度": humidity, "風速": wind, "洗濯指数": exponent} 
-    
+        wind_condtion = judgement_laundry.wind_condition(wind)
+        exponent = judgement_laundry.laundry_exponent(temp, humidity)
+        forecast_data[num] = {"日付": date, "天気": weather, "気温": temp, "湿度": humidity, "風速": wind, "風の状態": wind_condtion,"洗濯指数": exponent} 
+        print(forecast)
 
     return forecast_data
