@@ -1,8 +1,8 @@
 import requests
 from dotenv import load_dotenv
 import os
-import schemas.weather_api as schemas
-from . import judgement_laundry
+import schemas
+import judgement_laundry
 load_dotenv()
 
 
@@ -27,6 +27,5 @@ def get_forecast_data(city: schemas.City):
         exponent = judgement_laundry.laundry_exponent(temp, humidity)
         recommendation = judgement_laundry.laundry_recommendation(weather, exponent)
         forecast_data[num] = {"日付": date, "天気": {"概要": weather, "詳細": description, "外干しの可否": weather_condition ,"画像": f"http://openweathermap.org/img/wn/{icon}@2x.png"}, "気温": temp, "湿度": humidity, "風":{"風速": wind, "風の状態": wind_condtion},"洗濯指数": exponent, "おすすめ": recommendation} 
-        print(forecast)
 
     return forecast_data

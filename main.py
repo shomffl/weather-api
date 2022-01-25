@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from . import get_weather
-import schemas.weather_api as schemas
+import get_weather
+import schemas
 
 app = FastAPI()
 
