@@ -36,3 +36,40 @@ def weather_condition(weather: str):
         condition_text = "室内干しを検討しましょう。"
 
     return condition_text
+
+def laundry_recommendation(weather: str,exponent: float):
+    num = int(exponent)
+    recommendation_text = ""
+    recommendation_value = ""
+    if num >= 70:
+        if weather == "Clear":
+            recommendation_text = "最高の洗濯日和です!!!"
+            recommendation_value = "5"
+        elif weather == "Cloud":
+            recommendation_text = "天気の割に、洗濯物は乾きやすいです"
+            recommendation_value = "4"
+        else: 
+            recommendation_text = "室内干しをするなら..."
+            recommendation_value = "2"
+    elif num >= 50:
+        if weather == "Clear":
+            recommendation_text = "洗濯日和です!!!"
+            recommendation_value = "4"
+        elif weather == "Cloud":
+            recommendation_text = "天気の割に、洗濯物は乾きやすいです"
+            recommendation_value = "3"
+        else: 
+            recommendation_text = "室内干しをするなら..."
+            recommendation_value = "2"
+    elif num < 50:
+        if weather == "Clear":
+            recommendation_text = "洗濯日和です"
+            recommendation_value = "4"
+        elif weather == "Cloud":
+            recommendation_text = "洗濯物は乾きにくいです。室内干しの検討も..."
+            recommendation_value = "2"
+        else: 
+            recommendation_text = "今日は休みましょう"
+            recommendation_value = "1"
+    
+    return {"おすすめ度": recommendation_value, "コメント": recommendation_text}
